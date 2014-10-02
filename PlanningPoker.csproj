@@ -1,0 +1,177 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{F0C37F6E-1C43-4E88-AF65-3F1AE1DF795A}</ProjectGuid>
+    <OutputType>Exe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>PlanningPoker</RootNamespace>
+    <AssemblyName>PlanningPoker</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.AspNet.SignalR.Core">
+      <HintPath>..\packages\Microsoft.AspNet.SignalR.Core.2.1.2\lib\net45\Microsoft.AspNet.SignalR.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin">
+      <HintPath>..\packages\Microsoft.Owin.3.0.0\lib\net45\Microsoft.Owin.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Diagnostics">
+      <HintPath>..\packages\Microsoft.Owin.Diagnostics.2.0.1\lib\net40\Microsoft.Owin.Diagnostics.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.FileSystems">
+      <HintPath>..\packages\Microsoft.Owin.FileSystems.3.0.0\lib\net45\Microsoft.Owin.FileSystems.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Host.HttpListener">
+      <HintPath>..\packages\Microsoft.Owin.Host.HttpListener.3.0.0\lib\net45\Microsoft.Owin.Host.HttpListener.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Hosting">
+      <HintPath>..\packages\Microsoft.Owin.Hosting.3.0.0\lib\net45\Microsoft.Owin.Hosting.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security">
+      <HintPath>..\packages\Microsoft.Owin.Security.2.0.1\lib\net45\Microsoft.Owin.Security.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.StaticFiles">
+      <HintPath>..\packages\Microsoft.Owin.StaticFiles.3.0.0\lib\net45\Microsoft.Owin.StaticFiles.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\packages\Newtonsoft.Json.6.0.4\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="Owin">
+      <HintPath>..\packages\Owin.1.0\lib\net40\Owin.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Models\Player.cs" />
+    <Compile Include="Models\PokerBoard.cs" />
+    <Compile Include="Models\PokerState.cs" />
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SignalR\PokerHub.cs" />
+    <Compile Include="Startup.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+    <None Include="assets\lib\bootstrap-3.1.1\css\bootstrap-theme.css.map" />
+    <None Include="assets\lib\bootstrap-3.1.1\css\bootstrap.css.map" />
+    <None Include="assets\lib\bootstrap-3.1.1\fonts\glyphicons-halflings-regular.eot" />
+    <None Include="assets\lib\bootstrap-3.1.1\fonts\glyphicons-halflings-regular.ttf" />
+    <None Include="assets\lib\bootstrap-3.1.1\fonts\glyphicons-halflings-regular.woff" />
+    <None Include="assets\lib\font-awesome-4.1.0\fonts\fontawesome-webfont.eot" />
+    <None Include="assets\lib\font-awesome-4.1.0\fonts\fontawesome-webfont.ttf" />
+    <None Include="assets\lib\font-awesome-4.1.0\fonts\fontawesome-webfont.woff" />
+    <None Include="assets\lib\font-awesome-4.1.0\fonts\FontAwesome.otf" />
+    <None Include="assets\lib\font-awesome-4.1.0\less\bordered-pulled.less" />
+    <None Include="assets\lib\font-awesome-4.1.0\less\core.less" />
+    <None Include="assets\lib\font-awesome-4.1.0\less\fixed-width.less" />
+    <None Include="assets\lib\font-awesome-4.1.0\less\font-awesome.less" />
+    <None Include="assets\lib\font-awesome-4.1.0\less\icons.less" />
+    <None Include="assets\lib\font-awesome-4.1.0\less\larger.less" />
+    <None Include="assets\lib\font-awesome-4.1.0\less\list.less" />
+    <None Include="assets\lib\font-awesome-4.1.0\less\mixins.less" />
+    <None Include="assets\lib\font-awesome-4.1.0\less\path.less" />
+    <None Include="assets\lib\font-awesome-4.1.0\less\rotated-flipped.less" />
+    <None Include="assets\lib\font-awesome-4.1.0\less\spinning.less" />
+    <None Include="assets\lib\font-awesome-4.1.0\less\stacked.less" />
+    <None Include="assets\lib\font-awesome-4.1.0\less\variables.less" />
+    <None Include="assets\lib\font-awesome-4.1.0\scss\font-awesome.scss" />
+    <None Include="assets\lib\font-awesome-4.1.0\scss\_bordered-pulled.scss" />
+    <None Include="assets\lib\font-awesome-4.1.0\scss\_core.scss" />
+    <None Include="assets\lib\font-awesome-4.1.0\scss\_fixed-width.scss" />
+    <None Include="assets\lib\font-awesome-4.1.0\scss\_icons.scss" />
+    <None Include="assets\lib\font-awesome-4.1.0\scss\_larger.scss" />
+    <None Include="assets\lib\font-awesome-4.1.0\scss\_list.scss" />
+    <None Include="assets\lib\font-awesome-4.1.0\scss\_mixins.scss" />
+    <None Include="assets\lib\font-awesome-4.1.0\scss\_path.scss" />
+    <None Include="assets\lib\font-awesome-4.1.0\scss\_rotated-flipped.scss" />
+    <None Include="assets\lib\font-awesome-4.1.0\scss\_spinning.scss" />
+    <None Include="assets\lib\font-awesome-4.1.0\scss\_stacked.scss" />
+    <None Include="assets\lib\font-awesome-4.1.0\scss\_variables.scss" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="assets\app\account\login.html" />
+    <Content Include="assets\app\account\LoginController.js" />
+    <Content Include="assets\app\account\register.html" />
+    <Content Include="assets\app\account\RegisterController.js" />
+    <Content Include="assets\app\app.js" />
+    <Content Include="assets\app\base\BaseController.js" />
+    <Content Include="assets\app\base\layout.html" />
+    <Content Include="assets\app\core\services\DebounceService.js" />
+    <Content Include="assets\app\game\game.html" />
+    <Content Include="assets\app\game\PokerController.js" />
+    <Content Include="assets\app\game\SignalRService.js" />
+    <Content Include="assets\content\dron_theme.css" />
+    <Content Include="assets\content\site.css" />
+    <Content Include="assets\Index.html" />
+    <Content Include="assets\lib\angular-1.2.16\angular-route.min.js" />
+    <Content Include="assets\lib\angular-1.2.16\angular.min.js" />
+    <Content Include="assets\lib\angular-busy\angular-busy.css" />
+    <Content Include="assets\lib\angular-busy\angular-busy.js" />
+    <Content Include="assets\lib\angular-busy\angular-busy.min.css" />
+    <Content Include="assets\lib\angular-busy\angular-busy.min.js" />
+    <Content Include="assets\lib\angular-busy\dl-angular-busy.css" />
+    <Content Include="assets\lib\angular-busy\loading.gif" />
+    <Content Include="assets\lib\angular-busy\overlay.png" />
+    <Content Include="assets\lib\angular-ui-bootstrap-0.10.0\ui-bootstrap-0.10.0.min.js" />
+    <Content Include="assets\lib\angular-ui-router-0.2.10\angular-ui-router.min.js" />
+    <Content Include="assets\lib\angular-ui-utils-0.1.1\ui-utils-ieshiv.js" />
+    <Content Include="assets\lib\angular-ui-utils-0.1.1\ui-utils-ieshiv.min.js" />
+    <Content Include="assets\lib\angular-ui-utils-0.1.1\ui-utils.js" />
+    <Content Include="assets\lib\angular-ui-utils-0.1.1\ui-utils.min.js" />
+    <Content Include="assets\lib\bootstrap-3.1.1\css\bootstrap-theme.css" />
+    <Content Include="assets\lib\bootstrap-3.1.1\css\bootstrap-theme.min.css" />
+    <Content Include="assets\lib\bootstrap-3.1.1\css\bootstrap.css" />
+    <Content Include="assets\lib\bootstrap-3.1.1\css\bootstrap.min.css" />
+    <Content Include="assets\lib\bootstrap-3.1.1\fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="assets\lib\bootstrap-3.1.1\js\bootstrap.js" />
+    <Content Include="assets\lib\bootstrap-3.1.1\js\bootstrap.min.js" />
+    <Content Include="assets\lib\font-awesome-4.1.0\css\font-awesome.css" />
+    <Content Include="assets\lib\font-awesome-4.1.0\css\font-awesome.min.css" />
+    <Content Include="assets\lib\font-awesome-4.1.0\fonts\fontawesome-webfont.svg" />
+    <Content Include="assets\lib\jquery-2.1.1\jquery-2.1.1.min.js" />
+    <Content Include="assets\lib\jquery.signalR-2.1.2\jquery.signalR-2.1.2.js" />
+    <Content Include="assets\lib\jquery.signalR-2.1.2\jquery.signalR-2.1.2.min.js" />
+    <Content Include="assets\lib\moment-2.5.1\moment.min.js" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>XCOPY "$(ProjectDir)assets" "$(TargetDir)assets" /E /I /F /Y</PostBuildEvent>
+  </PropertyGroup>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
