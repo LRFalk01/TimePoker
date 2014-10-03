@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using System.Reflection;
 using Microsoft.Owin;
 using Microsoft.Owin.FileSystems;
@@ -14,7 +15,9 @@ namespace PlanningPoker
             string exeFolder = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
             string webFolder = Path.Combine(exeFolder, "assets");
 
-            var fileSystem = new PhysicalFileSystem(webFolder);
+            Console.Write(webFolder);
+
+            var fileSystem = new PhysicalFileSystem("./assets");
             var options = new FileServerOptions
             {
                 FileSystem = fileSystem

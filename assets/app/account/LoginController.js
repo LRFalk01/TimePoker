@@ -1,16 +1,19 @@
 ﻿'use strict';
 
-cbApp.controller('LoginController', ['$scope',
-    function LoginController($scope) {
-        var self = this;
+pPoker.controller('LoginController', ['$scope', 'SignalRService',
+    function LoginController($scope, SignalRService) {
+        $scope.login = $scope.login || {};
+        $scope.login.signalR = SignalRService;
 
-        $scope.submitForm = function(formData) {
+        $scope.login.submitForm = function(formData) {
             if (formData.$invalid) return;
-            $scope.Login($scope.user.Email, $scope.user.Password);
+            SignalRService.initialized.then(function () {
+                SignalRService.JoinServer($scope.login.user.Name, $scope.login.user.Spectator);
+            });
         };
 
         self.Init = function () {
-            $scope.user = {};
+            $scope.login.user = {};
         };
         self.Init();
     }]

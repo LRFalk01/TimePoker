@@ -11,9 +11,16 @@ namespace PlanningPoker
     {
         static void Main(string[] args)
         {
-            using (WebApp.Start<Startup>("http://localhost:8080/"))
+
+#if DEBUG
+            var url = "http://localhost:8080/";
+#endif
+#if !DEBUG
+            var url = "http://*:8888";
+#endif
+            using (WebApp.Start<Startup>(url))
             {
-                Console.WriteLine("Server running at http://localhost:8080/");
+                Console.WriteLine("Server running at " + url);
                 Console.ReadLine();
             }
         }

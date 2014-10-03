@@ -6,6 +6,11 @@ namespace PlanningPoker.Models
 {
     public class PokerBoard
     {
+        public PokerBoard()
+        {
+            Players = new List<Player>();
+        }
+
         public List<Player> Players { get; set; }
 
         public bool NameAvailable(string name)

@@ -17,20 +17,19 @@ namespace PlanningPoker.Models
         {
             Clients = context.Clients;
             Groups = context.Groups;
+            Board = new PokerBoard();
         }
 
-        private readonly ConcurrentDictionary<string, Player> _players =
-            new ConcurrentDictionary<string, Player>(StringComparer.OrdinalIgnoreCase);
-        private readonly PokerBoard _board = new PokerBoard();
+        public PokerBoard Board { get; private set; }
 
         public bool NameAvailable(string playerName)
         {
-            return _board.NameAvailable(playerName);
+            return Board.NameAvailable(playerName);
         }
 
         public Player PlayerJoin(string playerName)
         {
-            var player = _board.JoinGame(playerName);
+            var player = Board.JoinGame(playerName);
             return player;
         }
 
