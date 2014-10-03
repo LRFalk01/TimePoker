@@ -5,9 +5,10 @@ pPoker.factory('SignalRService', ['$q', '$rootScope', '$log', function ($q, $roo
     self.base = {};
     
     self.startDeferred = $q.defer();
-    self.base.initialized = self.startDeferred.promise;
+    self.initialized = self.startDeferred.promise;
     self.base.gameBoard = {};
     self.base.currentPlayer = {};
+    self.base.nameAvailable = undefined;
 
     self.hub = null;
   
@@ -26,6 +27,12 @@ pPoker.factory('SignalRService', ['$q', '$rootScope', '$log', function ($q, $roo
             $log.debug('game.joinServer');
         };
 
+        self.hub.client.nameAvailable = function (available) {
+            self.base.nameAvailable = available;
+            $rootScope.$apply();
+            $log.debug('game.nameAvailable');
+        };
+
         //Starting connection
         $.connection.hub.start().done(function () {
             self.startDeferred.resolve();
@@ -34,17 +41,21 @@ pPoker.factory('SignalRService', ['$q', '$rootScope', '$log', function ($q, $roo
         });
     };
     self.JoinServer = function (name, isPlaying) {
-        self.hub.server.joinServer(name);
+        self.hub.server.joinServer({ Name: name, Spectator: isPlaying });
         $log.debug('joinServer');
+    };
+
+    self.CheckName = function (name) {
+        self.hub.server.checkName(name);
+        $log.debug('checkName');
     };
 
     self.Init();
     return {
-        initialized: self.base.initialized,
+        initialized: self.initialized,
+        properties: self.base,
 
-        gameBoard: self.base.gameBoard,
-        player: self.base.currentPlayer,
-
-        JoinServer: self.JoinServer
+        JoinServer: self.JoinServer,
+        CheckName: self.CheckName
     }; 
 }]);

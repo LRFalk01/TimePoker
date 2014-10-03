@@ -15,7 +15,8 @@ namespace PlanningPoker.Models
 
         public bool NameAvailable(string name)
         {
-            return !Players.Exists(x => x.Name.ToLower() == name.ToLower());
+            var available = !Players.Exists(x => x.Name.ToLower() == name.ToLower());
+            return available;
         }
         public bool PlayerConnected(string connectedId)
         {
@@ -24,7 +25,7 @@ namespace PlanningPoker.Models
 
         public Player JoinGame(string name)
         {
-            if (!NameAvailable(name)) throw new ArgumentException("Name is not available");
+            if (!NameAvailable(name)){ throw new ArgumentException("Name is not available");}
             var player = new Player(name);
             Players.Add(player);
             return player;

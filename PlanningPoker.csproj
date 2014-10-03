@@ -78,6 +78,7 @@
     <Compile Include="Models\PokerState.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SignalR\Models\JoinServerModel.cs" />
     <Compile Include="SignalR\PokerHub.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
@@ -126,6 +127,7 @@
     <Content Include="assets\app\app.js" />
     <Content Include="assets\app\base\BaseController.js" />
     <Content Include="assets\app\base\layout.html" />
+    <Content Include="assets\app\core\services\DebounceService.js" />
     <Content Include="assets\app\game\game.html" />
     <Content Include="assets\app\game\PokerController.js" />
     <Content Include="assets\app\core\services\SignalRService.js" />

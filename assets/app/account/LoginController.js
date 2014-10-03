@@ -1,7 +1,8 @@
 ﻿'use strict';
 
-pPoker.controller('LoginController', ['$scope', 'SignalRService',
-    function LoginController($scope, SignalRService) {
+pPoker.controller('LoginController',
+    ['$scope', 'SignalRService', 'DebounceService',
+    function LoginController($scope, SignalRService, DebounceService) {
         $scope.login = $scope.login || {};
         $scope.login.signalR = SignalRService;
 
