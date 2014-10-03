@@ -17,6 +17,10 @@ namespace PlanningPoker.Models
         {
             return !Players.Exists(x => x.Name.ToLower() == name.ToLower());
         }
+        public bool PlayerConnected(string connectedId)
+        {
+            return Players.Exists(x => x.ConnectionId == connectedId);
+        }
 
         public Player JoinGame(string name)
         {
@@ -43,6 +47,13 @@ namespace PlanningPoker.Models
         public void Clear()
         {
             Players.ForEach(p => p.Clear());
+        }
+
+        public void LeaveGame(string connectionId)
+        {
+            var player = Players.SingleOrDefault(x => x.ConnectionId == connectionId);
+            if (player == null) return;
+            Players.Remove(player);
         }
     }
 }

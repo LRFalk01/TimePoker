@@ -29,7 +29,6 @@ pPoker.factory('SignalRService', ['$q', '$rootScope', '$log', function ($q, $roo
         //Starting connection
         $.connection.hub.start().done(function () {
             self.startDeferred.resolve();
-            //self.JoinServer();
             $rootScope.$apply();
             $log.debug('connected');
         });

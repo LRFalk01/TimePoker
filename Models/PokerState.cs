@@ -27,13 +27,25 @@ namespace PlanningPoker.Models
             return Board.NameAvailable(playerName);
         }
 
+        public bool PlayerConnected(string connectedId)
+        {
+            return Board.PlayerConnected(connectedId);
+        }
+
         public Player PlayerJoin(string playerName)
         {
             var player = Board.JoinGame(playerName);
+            Clients.All.playerList(Board.Players);
             return player;
         }
 
         public IHubConnectionContext<dynamic> Clients { get; set; }
         public IGroupManager Groups { get; set; }
+
+        public void PlayerDisconnect(string connectionId)
+        {
+            Board.LeaveGame(connectionId);
+            Clients.All.playerList(Board.Players);
+        }
     }
 }

@@ -16,7 +16,8 @@ namespace PlanningPoker.SignalR
 
             public override Task OnDisconnected(bool stopCalled)
             {
-                //todo leave player if joined
+                if (PokerState.Instance.PlayerConnected(Context.ConnectionId))
+                    PokerState.Instance.PlayerDisconnect(Context.ConnectionId);
                 return base.OnDisconnected(stopCalled);
             }
 
