@@ -6,7 +6,7 @@ pPoker.factory('SignalRService', ['$q', '$rootScope', '$log', function ($q, $roo
     
     self.startDeferred = $q.defer();
     self.initialized = self.startDeferred.promise;
-    self.base.gameBoard = {};
+    self.base.players = [];
     self.base.currentPlayer = {};
     self.base.nameAvailable = undefined;
 
@@ -15,10 +15,10 @@ pPoker.factory('SignalRService', ['$q', '$rootScope', '$log', function ($q, $roo
     self.Init = function () {
         self.hub = $.connection.pokerHub;
 
-        self.hub.client.initGameBoard = function (board) {
-            angular.copy(board, self.base.gameBoard);
+        self.hub.client.updatePlayers = function (players) {
+            angular.copy(players, self.base.players);
             $rootScope.$apply();
-            $log.debug('game.initGameBoard');
+            $log.debug('game.updatePlayers');
         };
 
         self.hub.client.joinServer = function (player) {
@@ -45,17 +45,11 @@ pPoker.factory('SignalRService', ['$q', '$rootScope', '$log', function ($q, $roo
         $log.debug('joinServer');
     };
 
-    self.CheckName = function (name) {
-        self.hub.server.checkName(name);
-        $log.debug('checkName');
-    };
-
     self.Init();
     return {
         initialized: self.initialized,
         properties: self.base,
 
-        JoinServer: self.JoinServer,
-        CheckName: self.CheckName
+        JoinServer: self.JoinServer
     }; 
 }]);

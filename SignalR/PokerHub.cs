@@ -20,6 +20,7 @@ namespace PlanningPoker.SignalR
                 player.IsPlaying = model.Spectator;
                 Clients.Caller.nameAvailable(true);
                 Clients.Caller.joinServer(player);
+                Clients.All.updatePlayers(PokerState.Instance.Board.Players);
             }
 
             public void CheckName(string name)
@@ -31,7 +32,10 @@ namespace PlanningPoker.SignalR
             public override Task OnDisconnected(bool stopCalled)
             {
                 if (PokerState.Instance.PlayerConnected(Context.ConnectionId))
+                {
                     PokerState.Instance.PlayerDisconnect(Context.ConnectionId);
+                    Clients.All.updatePlayers(PokerState.Instance.Board.Players);
+                }
                 return base.OnDisconnected(stopCalled);
             }
 
