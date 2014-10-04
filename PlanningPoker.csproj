@@ -135,8 +135,6 @@
     <Content Include="assets\content\dron_theme.css" />
     <Content Include="assets\content\site.css" />
     <Content Include="assets\index.html" />
-    <Content Include="assets\lib\angular-1.2.16\angular-route.min.js" />
-    <Content Include="assets\lib\angular-1.2.16\angular.min.js" />
     <Content Include="assets\lib\angular-1.2.26\angular-animate.js" />
     <Content Include="assets\lib\angular-1.2.26\angular-animate.min.js" />
     <Content Include="assets\lib\angular-1.2.26\angular.js" />
