@@ -35,6 +35,12 @@ namespace PlanningPoker.SignalR
                 Clients.All.updatePlayers(PokerState.Instance.Board.Players);
             }
 
+            public void Volunteer()
+            {
+                PokerState.Instance.PlayerVolunteer(Context.ConnectionId);
+                Clients.All.updatePlayers(PokerState.Instance.Board.Players);
+            }
+
             public override Task OnDisconnected(bool stopCalled)
             {
                 if (PokerState.Instance.PlayerConnected(Context.ConnectionId))

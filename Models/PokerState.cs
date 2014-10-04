@@ -57,5 +57,11 @@ namespace PlanningPoker.Models
             Board.LeaveGame(connectionId);
             Clients.All.playerList(Board.Players);
         }
+
+        public void PlayerVolunteer(string connectionId)
+        {
+            if (!PlayerConnected(connectionId)) return;
+            Board.SubmitVulonteer(connectionId);
+        }
     }
 }

@@ -38,10 +38,14 @@ namespace PlanningPoker.Models
             player.Estimate = estimate;
         }
 
-        public void SubmitVulonteer(Guid playerId)
+        public void SubmitVulonteer(string connectionId)
         {
-            var player = Players.FirstOrDefault(x => x.Id == playerId);
+            //only one player can volunteer
+            if (Players.Exists(x => x.Volunteer && x.ConnectionId != connectionId)) return;
+
+            var player = Players.FirstOrDefault(x => x.ConnectionId == connectionId);
             if (player == null || !player.IsPlaying) return;
+
             player.Volunteer = !player.Volunteer;
         }
 

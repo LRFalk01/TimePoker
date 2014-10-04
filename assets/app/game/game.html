@@ -9,13 +9,13 @@
             <button class="btn btn-primary form-control" ng-click="poker.SubmitUnknown()">Unkown</button>
         </div>
         <div class="col-xs-4">
-            <button class="btn btn-primary form-control">Volunteer</button>
+            <button class="btn btn-primary form-control" ng-click="poker.Volunteer()">Volunteer</button>
         </div>
         <div class="col-xs-4">
             <button class="btn btn-primary form-control" ng-click="poker.SubmitEstimate()">Submit</button>
         </div>
     </div>
-    <div class="row" style="margin-top: 10px;" ng-repeat="player in poker.signalR.players | filter:{ IsPlaying: true }">
+    <div class="row" style="margin-top: 10px;" ng-class="{'label-info': player.Volunteer}" ng-repeat="player in poker.signalR.players | filter:{ IsPlaying: true }">
         <!-- Player Name -->
         <div class="col-xs-4">
             {{player.Name}}
