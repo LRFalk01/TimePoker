@@ -27,7 +27,8 @@ pPoker.controller('PokerController', ['$scope', '$log', 'SignalRService',
         };
 
         $scope.poker.Reveal = function() {
-            return $scope.poker.signalR.players.every(function(player) {
+            return $scope.poker.signalR.players.every(function (player) {
+                if (!player.IsPlaying) return true;
                 return player.Estimate;
             });
         };
