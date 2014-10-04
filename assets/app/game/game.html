@@ -1,2 +1,40 @@
-﻿PokerView
-{{poker.signalR.players | json}}
+﻿<div class="container-fluid">
+    <div class="row" ng-show="poker.signalR.currentPlayer.IsPlaying">
+        <div class="col-xs-12">
+            <input class="form-control" type="number" ng-model="poker.estimate" />
+        </div>
+    </div>
+    <div class="row" style="margin-top: 10px;" ng-show="poker.signalR.currentPlayer.IsPlaying">
+        <div class="col-xs-4">
+            <button class="btn btn-primary form-control" ng-click="poker.SubmitUnknown()">Unkown</button>
+        </div>
+        <div class="col-xs-4">
+            <button class="btn btn-primary form-control">Volunteer</button>
+        </div>
+        <div class="col-xs-4">
+            <button class="btn btn-primary form-control" ng-click="poker.SubmitEstimate()">Submit</button>
+        </div>
+    </div>
+    <div class="row" style="margin-top: 10px;" ng-repeat="player in poker.signalR.players | filter:{ IsPlaying: true }">
+        <!-- Player Name -->
+        <div class="col-xs-4">
+            {{player.Name}}
+        </div>
+        <!-- Status -->
+        <div class="col-xs-4">
+            <i class="fa" ng-class="{
+               'fa-clock-o': !player.Estimate,
+               'fa-check': player.Estimate,
+               }"></i>
+        </div>
+        <!-- Estimate -->
+        <div class="col-xs-4">
+            <div ng-show="poker.signalR.currentPlayer.Id == player.Id || poker.Reveal()">{{player.Estimate}}</div>
+        </div>
+    </div>
+    <div class="row" style="margin-top: 10px;" ng-show="poker.signalR.currentPlayer.IsPlaying">
+        <div class="col-xs-12">
+            <button class="btn btn-primary form-control" ng-click="poker.Reset()">Reset</button>
+        </div>
+    </div>
+</div>

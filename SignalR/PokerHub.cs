@@ -23,10 +23,16 @@ namespace PlanningPoker.SignalR
                 Clients.All.updatePlayers(PokerState.Instance.Board.Players);
             }
 
-            public void CheckName(string name)
+            public void SubmitEstimate(string estimate)
             {
-                bool available = !string.IsNullOrWhiteSpace(name) && PokerState.Instance.NameAvailable(name);
-                Clients.Caller.nameAvailable(available);
+                PokerState.Instance.PlayerEstimate(estimate, Context.ConnectionId);
+                Clients.All.updatePlayers(PokerState.Instance.Board.Players);
+            }
+
+            public void Reset()
+            {
+                PokerState.Instance.Reset();
+                Clients.All.updatePlayers(PokerState.Instance.Board.Players);
             }
 
             public override Task OnDisconnected(bool stopCalled)

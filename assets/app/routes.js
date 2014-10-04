@@ -13,7 +13,7 @@ pPoker.constant('routes', {
             parent: 'base',
             url: 'game',
             controller: 'PokerController',
-            templateUrl: '/app/game/Game.html',
+            templateUrl: '/app/game/game.html',
         },
         {
             name: 'login',

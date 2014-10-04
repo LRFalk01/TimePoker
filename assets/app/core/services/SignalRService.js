@@ -45,11 +45,23 @@ pPoker.factory('SignalRService', ['$q', '$rootScope', '$log', function ($q, $roo
         $log.debug('joinServer');
     };
 
+    self.SubmitEstimate = function (estimate) {
+        self.hub.server.submitEstimate(estimate);
+        $log.debug('submitEstimate');
+    };
+
+    self.Reset = function () {
+        self.hub.server.reset();
+        $log.debug('reset');
+    };
+
     self.Init();
     return {
         initialized: self.initialized,
         properties: self.base,
 
-        JoinServer: self.JoinServer
+        JoinServer: self.JoinServer,
+        SubmitEstimate: self.SubmitEstimate,
+        Reset: self.Reset
     }; 
 }]);

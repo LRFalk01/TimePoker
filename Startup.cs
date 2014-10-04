@@ -12,12 +12,12 @@ namespace PlanningPoker
     {
         public void Configuration(IAppBuilder app)
         {
-            string exeFolder = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
-            string webFolder = Path.Combine(exeFolder, "assets");
-
-            Console.Write(webFolder);
-
+#if DEBUG
+            var fileSystem = new PhysicalFileSystem("../../assets");
+#endif
+#if !DEBUG
             var fileSystem = new PhysicalFileSystem("./assets");
+#endif
             var options = new FileServerOptions
             {
                 FileSystem = fileSystem

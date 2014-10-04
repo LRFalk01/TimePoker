@@ -39,6 +39,16 @@ namespace PlanningPoker.Models
             return player;
         }
 
+        public void PlayerEstimate(string estimate, string connectionId)
+        {
+            if (!PlayerConnected(connectionId)) return;
+            Board.SubmitEstimate(estimate, connectionId);
+        }
+        public void Reset()
+        {
+            Board.Clear();
+        }
+
         public IHubConnectionContext<dynamic> Clients { get; set; }
         public IGroupManager Groups { get; set; }
 

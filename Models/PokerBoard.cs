@@ -31,9 +31,9 @@ namespace PlanningPoker.Models
             return player;
         }
 
-        public void SubmitEstimate(Guid playerId, string estimate)
+        public void SubmitEstimate(string estimate, string connectionId)
         {
-            var player = Players.FirstOrDefault(x => x.Id == playerId);
+            var player = Players.FirstOrDefault(x => x.ConnectionId == connectionId);
             if (player == null || !player.IsPlaying) return;
             player.Estimate = estimate;
         }
