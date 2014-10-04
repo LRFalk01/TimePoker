@@ -1804,7 +1804,8 @@ textarea.input-lg {
 }
 .btn {
   display: inline-block;
-  padding: 6px 12px;
+  padding-top: 6px;
+  padding-bottom: 6px;
   margin-bottom: 0;
   font-size: 14px;
   font-weight: 100;
@@ -1886,9 +1887,10 @@ fieldset[disabled] .btn-default.active {
   border-color: #cccccc;
 }
 .btn-primary {
-  color: #ffffff;
+  color: #000;
   background-color: #57b0f9;
   border-color: #3ea4f8;
+  font-weight: bold;
 }
 .btn-primary:hover,
 .btn-primary:focus,
@@ -2104,7 +2106,6 @@ fieldset[disabled] .btn-link:focus {
   text-decoration: none;
 }
 .btn-lg {
-  padding: 10px 16px;
   font-size: 18px;
   line-height: 1.33;
   border-radius: 0px;

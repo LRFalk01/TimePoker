@@ -1,40 +1,76 @@
-﻿<div class="container-fluid">
-    <div class="row" ng-show="poker.signalR.currentPlayer.IsPlaying">
+﻿<div class="container-fluid game-board">
+    <div class="row">
+        <div class="col-xs-6">
+            Session <b>CareBook</b>
+        </div>
+        <div class="col-xs-6" style="text-align: right;">
+            {{base.signalR.currentPlayer.Name }}
+        </div>
+    </div>
+
+    <div class="row">
         <div class="col-xs-12">
-            <input class="form-control" type="number" ng-model="poker.estimate" />
+            <div class="card-container" ng-repeat="player in poker.signalR.players | filter:{ IsPlaying: true }">
+                <div class="card">
+                    <!-- Volunteer -->
+                    <div class="volunteer" ng-show="player.Volunteer">
+                        <i class="fa fa-star"></i>
+                    </div>
+
+                    <!-- Status -->
+                    <div class="estimate status" ng-show="!poker.Reveal()">
+                        <i class="fa" ng-class="{
+                           'fa-clock-o waiting': !player.Estimate,
+                           'fa-check  done': player.Estimate,
+                           }"></i>
+                    </div>
+                    <!-- Estimate -->
+                    <div class="estimate" ng-show="poker.Reveal()">
+                        <div>{{player.Estimate}}</div>
+                    </div>
+                </div>
+                <!-- Player Name -->
+                <div class="player-name">
+                    {{player.Name}}
+                </div>
+            </div>
         </div>
     </div>
-    <div class="row" style="margin-top: 10px;" ng-show="poker.signalR.currentPlayer.IsPlaying">
-        <div class="col-xs-4">
-            <button class="btn btn-primary form-control" ng-click="poker.SubmitUnknown()">Unkown</button>
+
+
+    <div ng-show="poker.signalR.currentPlayer.IsPlaying">
+        <div class="row">
+            <div class="col-xs-12">
+                <hr />
+            </div>
         </div>
-        <div class="col-xs-4">
-            <button class="btn btn-primary form-control" ng-click="poker.Volunteer()">Volunteer</button>
+        <div class="row">
+            <div class="col-xs-3">
+            </div>
+            <div class="col-xs-6">
+                Your Estimate
+            </div>
         </div>
-        <div class="col-xs-4">
-            <button class="btn btn-primary form-control" ng-click="poker.SubmitEstimate()">Submit</button>
+        <div class="row" style="margin-bottom: 10px;">
+            <div class="col-xs-3">
+                <button class="btn btn-primary" ng-click="poker.Volunteer()">Dibs</button>
+            </div>
+            <div class="col-xs-6">
+                <div class="pull-left" style="width: 80%">
+                    <input class="form-control" type="number" ng-model="poker.estimate" />
+                </div>
+                <div class="pull-left" style="width: 20%">
+                    <button class="btn btn-primary" ng-click="poker.SubmitUnknown()">?</button>
+                </div>
+            </div>
+            <div class="col-xs-3">
+                <button class="btn btn-primary" ng-click="poker.SubmitEstimate()">Done</button>
+            </div>
         </div>
-    </div>
-    <div class="row" style="margin-top: 10px;" ng-class="{'label-info': player.Volunteer}" ng-repeat="player in poker.signalR.players | filter:{ IsPlaying: true }">
-        <!-- Player Name -->
-        <div class="col-xs-4">
-            {{player.Name}}
-        </div>
-        <!-- Status -->
-        <div class="col-xs-4">
-            <i class="fa" ng-class="{
-               'fa-clock-o': !player.Estimate,
-               'fa-check': player.Estimate,
-               }"></i>
-        </div>
-        <!-- Estimate -->
-        <div class="col-xs-4">
-            <div ng-show="poker.signalR.currentPlayer.Id == player.Id || poker.Reveal()">{{player.Estimate}}</div>
-        </div>
-    </div>
-    <div class="row" style="margin-top: 10px;" ng-show="poker.signalR.currentPlayer.IsPlaying">
-        <div class="col-xs-12">
-            <button class="btn btn-primary form-control" ng-click="poker.Reset()">Reset</button>
+        <div class="row">
+            <div class="col-xs-12">
+                <button class="btn btn-primary" ng-click="poker.Reset()">Reset</button>
+            </div>
         </div>
     </div>
 </div>
