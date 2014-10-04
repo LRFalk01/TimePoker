@@ -137,6 +137,10 @@
     <Content Include="assets\index.html" />
     <Content Include="assets\lib\angular-1.2.16\angular-route.min.js" />
     <Content Include="assets\lib\angular-1.2.16\angular.min.js" />
+    <Content Include="assets\lib\angular-1.2.26\angular-animate.js" />
+    <Content Include="assets\lib\angular-1.2.26\angular-animate.min.js" />
+    <Content Include="assets\lib\angular-1.2.26\angular.js" />
+    <Content Include="assets\lib\angular-1.2.26\angular.min.js" />
     <Content Include="assets\lib\angular-busy\angular-busy.css" />
     <Content Include="assets\lib\angular-busy\angular-busy.js" />
     <Content Include="assets\lib\angular-busy\angular-busy.min.css" />

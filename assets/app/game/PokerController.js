@@ -1,7 +1,7 @@
 ﻿'use strict';
 
-pPoker.controller('PokerController', ['$scope', '$log', 'SignalRService',
-    function ($scope, $log, SignalRService) {
+pPoker.controller('PokerController', ['$scope', '$log', 'SignalRService', '$timeout',
+    function ($scope, $log, SignalRService, $timeout) {
         $scope.poker = $scope.poker || {};
         $scope.poker.signalR = SignalRService.properties;
 
@@ -26,12 +26,18 @@ pPoker.controller('PokerController', ['$scope', '$log', 'SignalRService',
             SignalRService.Volunteer();
         };
 
-        $scope.poker.Reveal = function() {
-            return $scope.poker.signalR.players.every(function (player) {
-                if (!player.IsPlaying) return true;
-                return player.Estimate;
-            });
-        };
+        $scope.$watchCollection('poker.signalR.players', function (players) {
+            $timeout(function() {
+                if (!players || players.length == 0) {
+                    $scope.poker.reveal = false;
+                    return;
+                }
+                $scope.poker.reveal = players.every(function (player) {
+                    if (!player.IsPlaying) return true;
+                    return player.Estimate;
+                });
+            }, 100);
+        });
 
         self.Init();
     }]
