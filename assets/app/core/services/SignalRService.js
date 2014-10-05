@@ -33,6 +33,12 @@ pPoker.factory('SignalRService', ['$q', '$rootScope', '$log', function ($q, $roo
             $log.debug('game.nameAvailable');
         };
 
+        self.hub.client.roomName = function (room) {
+            self.base.room = room;
+            $rootScope.$apply();
+            $log.debug('game.roomName');
+        };
+
         //Starting connection
         $.connection.hub.start().done(function () {
             self.startDeferred.resolve();
@@ -40,8 +46,8 @@ pPoker.factory('SignalRService', ['$q', '$rootScope', '$log', function ($q, $roo
             $log.debug('connected');
         });
     };
-    self.JoinServer = function (name, isPlaying) {
-        self.hub.server.joinServer({ Name: name, Spectator: isPlaying });
+    self.JoinServer = function (name, isPlaying, room) {
+        self.hub.server.joinServer({ Name: name, Room: room, Spectator: isPlaying });
         $log.debug('joinServer');
     };
 

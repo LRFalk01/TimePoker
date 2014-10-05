@@ -1,6 +1,7 @@
 ﻿<form cg-busy="login.signalR.initialized" class="form-signin" novalidate name="loginForm" ng-submit="login.submitForm(loginForm)">
     <h2 class="form-signin-heading">Pick a name</h2>
     <input type="text" autofocus="" class="form-control" required name="Name" ng-model="login.user.Name" placeholder="Display Name" />
+    <input type="text" autofocus="" class="form-control" required name="Name" ng-model="login.user.Room" placeholder="Room" />
     <label class="checkbox">
         <input type="checkbox" ng-model="login.user.Spectator"> Spectator
         <span class="label-danger" ng-show="login.signalR.nameAvailable === false">Name taken</span>

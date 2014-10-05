@@ -9,44 +9,54 @@ namespace PlanningPoker.SignalR
         {
             public void JoinServer(JoinServerModel model)
             {
-                if (!PokerState.Instance.NameAvailable(model.Name))
+                if (!PokerState.Instance.NameAvailable(model.Name, model.Room))
                 {
                     Clients.Caller.nameAvailable(false);
                     return;
                 }
 
-                var player = PokerState.Instance.PlayerJoin(model.Name);
+                var player = PokerState.Instance.PlayerJoin(model.Name, model.Room, Context.ConnectionId);
                 player.ConnectionId = Context.ConnectionId;
                 player.IsPlaying = model.Spectator;
+
                 Clients.Caller.nameAvailable(true);
                 Clients.Caller.joinServer(player);
-                Clients.All.updatePlayers(PokerState.Instance.Board.Players);
+                Clients.Caller.roomName(model.Room);
+                Clients.Group(model.Room).updatePlayers(PokerState.Instance.GetBoard(model.Room).Players);
             }
 
             public void SubmitEstimate(string estimate)
             {
                 PokerState.Instance.PlayerEstimate(estimate, Context.ConnectionId);
-                Clients.All.updatePlayers(PokerState.Instance.Board.Players);
+
+                var board = PokerState.Instance.GetPlayerBoard(Context.ConnectionId);
+                Clients.Group(board.BoardName).updatePlayers(board.Players);
             }
 
             public void Reset()
             {
-                PokerState.Instance.Reset();
-                Clients.All.updatePlayers(PokerState.Instance.Board.Players);
+                PokerState.Instance.Reset(Context.ConnectionId);
+
+                var board = PokerState.Instance.GetPlayerBoard(Context.ConnectionId);
+                Clients.Group(board.BoardName).updatePlayers(board.Players);
             }
 
             public void Volunteer()
             {
                 PokerState.Instance.PlayerVolunteer(Context.ConnectionId);
-                Clients.All.updatePlayers(PokerState.Instance.Board.Players);
+
+                var board = PokerState.Instance.GetPlayerBoard(Context.ConnectionId);
+                Clients.Group(board.BoardName).updatePlayers(board.Players);
             }
 
             public override Task OnDisconnected(bool stopCalled)
             {
                 if (PokerState.Instance.PlayerConnected(Context.ConnectionId))
                 {
+                    var board = PokerState.Instance.GetPlayerBoard(Context.ConnectionId);
+
                     PokerState.Instance.PlayerDisconnect(Context.ConnectionId);
-                    Clients.All.updatePlayers(PokerState.Instance.Board.Players);
+                    Clients.Group(board.BoardName).updatePlayers(board.Players);
                 }
                 return base.OnDisconnected(stopCalled);
             }

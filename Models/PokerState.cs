@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Concurrent;
+using System.Linq;
+using System.Runtime.Remoting.Contexts;
 using Microsoft.AspNet.SignalR;
 using Microsoft.AspNet.SignalR.Hubs;
 using PlanningPoker.SignalR;
@@ -17,36 +19,55 @@ namespace PlanningPoker.Models
         {
             Clients = context.Clients;
             Groups = context.Groups;
-            Board = new PokerBoard();
         }
 
-        public PokerBoard Board { get; private set; }
+        private readonly ConcurrentDictionary<string, PokerBoard> _boards =
+            new ConcurrentDictionary<string, PokerBoard>(StringComparer.OrdinalIgnoreCase);
 
-        public bool NameAvailable(string playerName)
+        public PokerBoard GetBoard(string boardName)
         {
-            return Board.NameAvailable(playerName);
+            if (!_boards.ContainsKey(boardName))
+            {
+                var board = new PokerBoard(boardName);
+                _boards.TryAdd(boardName, board);
+            }
+            return _boards[boardName];
+        }
+
+        public PokerBoard GetPlayerBoard(string connectionId)
+        {
+            if (!PlayerConnected(connectionId)) return null;
+            return _boards.Select(x => x.Value).First(x => x.PlayerConnected(connectionId));
+        }
+
+        //public PokerBoard Board { get; private set; }
+
+        public bool NameAvailable(string playerName, string boardName)
+        {
+            return GetBoard(boardName).NameAvailable(playerName);
         }
 
         public bool PlayerConnected(string connectedId)
         {
-            return Board.PlayerConnected(connectedId);
+            return _boards.Any(x => x.Value.PlayerConnected(connectedId));
         }
 
-        public Player PlayerJoin(string playerName)
+        public Player PlayerJoin(string playerName, string boardName, string connectionId)
         {
-            var player = Board.JoinGame(playerName);
-            Clients.All.playerList(Board.Players);
+            var board = GetBoard(boardName);
+            Groups.Add(connectionId, boardName);
+            var player = board.JoinGame(playerName);
             return player;
         }
 
         public void PlayerEstimate(string estimate, string connectionId)
         {
             if (!PlayerConnected(connectionId)) return;
-            Board.SubmitEstimate(estimate, connectionId);
+            GetPlayerBoard(connectionId).SubmitEstimate(estimate, connectionId);
         }
-        public void Reset()
+        public void Reset(string connectionid)
         {
-            Board.Clear();
+            GetPlayerBoard(connectionid).Clear();
         }
 
         public IHubConnectionContext<dynamic> Clients { get; set; }
@@ -54,14 +75,23 @@ namespace PlanningPoker.Models
 
         public void PlayerDisconnect(string connectionId)
         {
-            Board.LeaveGame(connectionId);
-            Clients.All.playerList(Board.Players);
+            var board = GetPlayerBoard(connectionId);
+            board.LeaveGame(connectionId);
+            Groups.Remove(connectionId, board.BoardName);
+            if (board.Players.Count == 0)
+            {
+                _boards.TryRemove(board.BoardName, out board);
+            }
+            else
+            {
+                Clients.Group(board.BoardName).playerList(board.Players);   
+            }
         }
 
         public void PlayerVolunteer(string connectionId)
         {
             if (!PlayerConnected(connectionId)) return;
-            Board.SubmitVulonteer(connectionId);
+            GetPlayerBoard(connectionId).SubmitVulonteer(connectionId);
         }
     }
 }

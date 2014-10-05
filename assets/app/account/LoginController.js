@@ -10,7 +10,7 @@ pPoker.controller('LoginController',
             if (formData && formData.$invalid) return;
             SignalRService.initialized.then(function () {
                 $scope.login.SetCookieValues();
-                SignalRService.JoinServer($scope.login.user.Name, !$scope.login.user.Spectator);
+                SignalRService.JoinServer($scope.login.user.Name, !$scope.login.user.Spectator, $scope.login.user.Room);
             });
         };
         $scope.$watch('login.signalR.currentPlayer.Id', function (newValue) {
@@ -21,9 +21,11 @@ pPoker.controller('LoginController',
         $scope.login.GetCookieValues = function() {
             var cookieUser = ipCookie('name');
             var cookieSpectator = ipCookie('spectator');
-            if (cookieUser && (cookieSpectator === true || cookieSpectator === false)) {
+            var cookieRoom = ipCookie('room');
+            if (cookieUser && cookieRoom && (cookieSpectator === true || cookieSpectator === false)) {
                 $scope.login.user.Name = cookieUser;
                 $scope.login.user.Spectator = cookieSpectator;
+                $scope.login.user.Room = cookieRoom;
                 return true;
             }
             return false;
@@ -32,6 +34,7 @@ pPoker.controller('LoginController',
         $scope.login.SetCookieValues = function() {
             ipCookie('name', $scope.login.user.Name, { expires: 21 });
             ipCookie('spectator', $scope.login.user.Spectator || false, { expires: 21 });
+            ipCookie('room', $scope.login.user.Room || false, { expires: 21 });
         };
 
         self.Init = function () {
