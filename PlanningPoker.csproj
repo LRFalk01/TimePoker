@@ -146,6 +146,7 @@
     <Content Include="assets\lib\angular-busy\dl-angular-busy.css" />
     <Content Include="assets\lib\angular-busy\loading.gif" />
     <Content Include="assets\lib\angular-busy\overlay.png" />
+    <Content Include="assets\lib\angular-cookie\angular-cookie.js" />
     <Content Include="assets\lib\angular-ui-bootstrap-0.10.0\ui-bootstrap-0.10.0.min.js" />
     <Content Include="assets\lib\angular-ui-router-0.2.10\angular-ui-router.min.js" />
     <Content Include="assets\lib\angular-ui-utils-0.1.1\ui-utils-ieshiv.js" />
