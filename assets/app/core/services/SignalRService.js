@@ -9,6 +9,7 @@ pPoker.factory('SignalRService', ['$q', '$rootScope', '$log', function ($q, $roo
     self.base.players = [];
     self.base.currentPlayer = {};
     self.base.nameAvailable = undefined;
+    self.base.transport = undefined;
 
     self.hub = null;
   
@@ -41,6 +42,7 @@ pPoker.factory('SignalRService', ['$q', '$rootScope', '$log', function ($q, $roo
 
         //Starting connection
         $.connection.hub.start().done(function () {
+            self.base.transport = self.hub.connection.transport.name;
             self.startDeferred.resolve();
             $rootScope.$apply();
             $log.debug('connected');
