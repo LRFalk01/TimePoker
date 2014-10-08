@@ -9,7 +9,8 @@ pPoker.controller('LoginController',
         $scope.login.submitForm = function(formData) {
             if (formData && formData.$invalid) return;
             SignalRService.initialized.then(function () {
-                $scope.login.SetCookieValues();
+                if ($scope.login.user.Remember)
+                    $scope.login.SetCookieValues();
                 SignalRService.JoinServer($scope.login.user.Name, !$scope.login.user.Spectator, $scope.login.user.Room);
             });
         };
@@ -39,6 +40,7 @@ pPoker.controller('LoginController',
 
         self.Init = function () {
             $scope.login.user = {};
+            $scope.login.user.Remember = true;
             if ($scope.login.GetCookieValues())$scope.login.submitForm();
         };
         self.Init();

@@ -2,9 +2,12 @@
     <h2 class="form-signin-heading">Pick a name</h2>
     <input type="text" autofocus="" class="form-control" required name="Name" ng-model="login.user.Name" placeholder="Display Name" />
     <input type="text" autofocus="" class="form-control" required name="Name" ng-model="login.user.Room" placeholder="Room" />
-    <label class="checkbox">
+    <label class="checkbox" style="display: inline-block;">
         <input type="checkbox" ng-model="login.user.Spectator"> Spectator
         <span class="label-danger" ng-show="login.signalR.nameAvailable === false">Name taken</span>
+    </label>
+    <label class="checkbox" style="display: inline-block; margin-top: 10px; margin-left: 10px;">
+        <input type="checkbox" ng-model="login.user.Remember"> Remember Me
     </label>
     <button class="btn btn-lg btn-primary btn-block" type="submit">Join</button>
 </form>

@@ -11,7 +11,10 @@ pPoker.controller('BaseController', ['$scope', '$log', '$state', 'SignalRService
         };
 
         $scope.$watch('base.signalR.currentPlayer.Id', function (newValue) {
-            if (!newValue) return;
+            if (!newValue) {
+                $state.go('login');
+                return;
+            }
             $state.go('game');
         });
 

@@ -49,7 +49,7 @@ namespace PlanningPoker.SignalR
                 Clients.Group(board.BoardName).updatePlayers(board.Players);
             }
 
-            public override Task OnDisconnected(bool stopCalled)
+            public void LeaveGame()
             {
                 if (PokerState.Instance.PlayerConnected(Context.ConnectionId))
                 {
@@ -57,7 +57,13 @@ namespace PlanningPoker.SignalR
 
                     PokerState.Instance.PlayerDisconnect(Context.ConnectionId);
                     Clients.Group(board.BoardName).updatePlayers(board.Players);
+                    Clients.Caller.joinServer(new {});
                 }
+            }
+
+            public override Task OnDisconnected(bool stopCalled)
+            {
+                LeaveGame();
                 return base.OnDisconnected(stopCalled);
             }
 

@@ -63,6 +63,11 @@ pPoker.factory('SignalRService', ['$q', '$rootScope', '$log', function ($q, $roo
         $log.debug('reset');
     };
 
+    self.Leave = function () {
+        self.hub.server.leaveGame();
+        $log.debug('leaveGame');
+    };
+
     self.Volunteer = function () {
         self.hub.server.volunteer();
         $log.debug('volunteer');
@@ -76,6 +81,7 @@ pPoker.factory('SignalRService', ['$q', '$rootScope', '$log', function ($q, $roo
         JoinServer: self.JoinServer,
         SubmitEstimate: self.SubmitEstimate,
         Reset: self.Reset,
-        Volunteer: self.Volunteer
+        Volunteer: self.Volunteer,
+        Leave: self.Leave
     }; 
 }]);

@@ -1,7 +1,7 @@
 ﻿'use strict';
 
-pPoker.controller('PokerController', ['$scope', '$log', 'SignalRService', '$timeout',
-    function ($scope, $log, SignalRService, $timeout) {
+pPoker.controller('PokerController', ['$scope', '$log', 'SignalRService', '$timeout', 'ipCookie', '$state',
+    function ($scope, $log, SignalRService, $timeout, ipCookie, $state) {
         $scope.poker = $scope.poker || {};
         $scope.poker.signalR = SignalRService.properties;
 
@@ -38,6 +38,14 @@ pPoker.controller('PokerController', ['$scope', '$log', 'SignalRService', '$time
                 });
             }, 100);
         });
+
+        $scope.poker.Leave = function() {
+            SignalRService.Leave();
+            ipCookie.remove('name');
+            ipCookie.remove('spectator');
+            ipCookie.remove('room');
+            $state.go('login');
+        };
 
         self.Init();
     }]
