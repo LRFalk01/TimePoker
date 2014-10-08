@@ -1,11 +1,15 @@
 ﻿'use strict';
 
-pPoker.controller('PokerController', ['$scope', '$log', 'SignalRService', '$timeout', 'ipCookie', '$state',
-    function ($scope, $log, SignalRService, $timeout, ipCookie, $state) {
+pPoker.controller('PokerController', ['$scope', '$log', 'SignalRService', '$timeout', 'ipCookie', '$state', 'ngAudio',
+    function ($scope, $log, SignalRService, $timeout, ipCookie, $state, ngAudio) {
         $scope.poker = $scope.poker || {};
         $scope.poker.signalR = SignalRService.properties;
 
         self.Init = function () {
+            $scope.poker.sounds = {};
+            $scope.poker.sounds.playerJoin = ngAudio.load('/app/game/sounds/playerJoin.mp3');
+            $scope.poker.sounds.dibs = ngAudio.load('/app/game/sounds/dibs.mp3');
+            $scope.poker.sounds.reveal = ngAudio.load('/app/game/sounds/reveal.mp3');
         };
 
         $scope.poker.SubmitEstimate = function () {
@@ -26,16 +30,34 @@ pPoker.controller('PokerController', ['$scope', '$log', 'SignalRService', '$time
             SignalRService.Volunteer();
         };
 
-        $scope.$watchCollection('poker.signalR.players', function (players) {
-            $timeout(function() {
+        $scope.$watchCollection('poker.signalR.players', function (players, oldPlayers) {
+            $timeout(function () {
+                var previousReveal = $scope.poker.reveal;
                 if (!players || players.length == 0) {
                     $scope.poker.reveal = false;
                     return;
                 }
+                if (oldPlayers && oldPlayers.length > 0 && players.length > oldPlayers.length) {
+                    $scope.poker.sounds.playerJoin.play();
+                }
+
+                if (oldPlayers && oldPlayers.length) {
+                    players.forEach(function (player) {
+                        oldPlayers.forEach(function(oldPlayer) {
+                            if (player.Id != oldPlayer.Id) return;
+                            if (player.Volunteer && !oldPlayer.Volunteer)
+                                $scope.poker.sounds.dibs.play();
+                        });
+                    });
+                }
+                
                 $scope.poker.reveal = players.every(function (player) {
                     if (!player.IsPlaying) return true;
                     return player.Estimate;
                 });
+
+                if ($scope.poker.reveal && !previousReveal)
+                    $scope.poker.sounds.reveal.play();
             }, 100);
         });
 
