@@ -73,6 +73,11 @@ pPoker.factory('SignalRService', ['$q', '$rootScope', '$log', function ($q, $roo
         $log.debug('volunteer');
     };
 
+    self.AddHours = function (hours) {
+        self.hub.server.addHours(hours);
+        $log.debug('addHours');
+    };
+
     self.Init();
     return {
         initialized: self.initialized,
@@ -82,6 +87,7 @@ pPoker.factory('SignalRService', ['$q', '$rootScope', '$log', function ($q, $roo
         SubmitEstimate: self.SubmitEstimate,
         Reset: self.Reset,
         Volunteer: self.Volunteer,
-        Leave: self.Leave
+        Leave: self.Leave,
+        AddHours: self.AddHours
     }; 
 }]);

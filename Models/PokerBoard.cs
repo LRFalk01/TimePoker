@@ -62,5 +62,11 @@ namespace PlanningPoker.Models
             if (player == null) return;
             Players.Remove(player);
         }
+
+        public void AddHoursForPlayer(decimal hours, string connectionid)
+        {
+            if (!Players.Exists(x => x.ConnectionId == connectionid)) return;
+            Players.First(x => x.ConnectionId == connectionid).Hours.Add(hours);
+        }
     }
 }

@@ -69,6 +69,12 @@ namespace PlanningPoker.Models
         {
             GetPlayerBoard(connectionid).Clear();
         }
+        public void AddHoursForPlayer(decimal hours, string connectionid)
+        {
+            if (!PlayerConnected(connectionid)) return;
+            PokerBoard board = GetPlayerBoard(connectionid);
+            board.AddHoursForPlayer(hours, connectionid);
+        }
 
         public IHubConnectionContext<dynamic> Clients { get; set; }
         public IGroupManager Groups { get; set; }

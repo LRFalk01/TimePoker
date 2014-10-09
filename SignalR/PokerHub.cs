@@ -57,7 +57,18 @@ namespace PlanningPoker.SignalR
 
                     PokerState.Instance.PlayerDisconnect(Context.ConnectionId);
                     Clients.Group(board.BoardName).updatePlayers(board.Players);
-                    Clients.Caller.joinServer(new {});
+                    Clients.Caller.joinServer(new { });
+                }
+            }
+
+            public void AddHours(decimal hours)
+            {
+                if (PokerState.Instance.PlayerConnected(Context.ConnectionId))
+                {
+                    var board = PokerState.Instance.GetPlayerBoard(Context.ConnectionId);
+
+                    PokerState.Instance.AddHoursForPlayer(hours, Context.ConnectionId);
+                    Clients.Group(board.BoardName).updatePlayers(board.Players);
                 }
             }
 

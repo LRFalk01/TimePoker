@@ -143,7 +143,6 @@
     <Content Include="assets\lib\angular-1.2.26\angular-animate.min.js" />
     <Content Include="assets\lib\angular-1.2.26\angular.js" />
     <Content Include="assets\lib\angular-1.2.26\angular.min.js" />
-    <Content Include="assets\lib\angular-audio\angular.audio.js" />
     <Content Include="assets\lib\angular-busy\angular-busy.css" />
     <Content Include="assets\lib\angular-busy\angular-busy.js" />
     <Content Include="assets\lib\angular-busy\angular-busy.min.css" />

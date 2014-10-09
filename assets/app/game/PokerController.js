@@ -27,6 +27,13 @@ pPoker.controller('PokerController', ['$scope', '$log', 'SignalRService', '$time
             SignalRService.Volunteer();
         };
 
+        $scope.poker.AddHours = function () {
+            if (!$scope.poker.hours) return;
+            SignalRService.AddHours($scope.poker.hours);
+            $scope.poker.hours = undefined;
+        };
+
+
         $scope.$watchCollection('poker.signalR.players', function (players, oldPlayers) {
             $timeout(function () {
                 var previousReveal = $scope.poker.reveal;
@@ -49,6 +56,8 @@ pPoker.controller('PokerController', ['$scope', '$log', 'SignalRService', '$time
                 }
                 
                 $scope.poker.reveal = players.every(function (player) {
+                    if(player.Hours.length > 0)
+                        player.TotalHours = player.Hours.reduce(function(previousValue, currentValue, index, array) { return previousValue + currentValue; });
                     if (!player.IsPlaying) return true;
                     return player.Estimate;
                 });
