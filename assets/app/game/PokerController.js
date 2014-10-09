@@ -1,15 +1,12 @@
 ﻿'use strict';
 
-pPoker.controller('PokerController', ['$scope', '$log', 'SignalRService', '$timeout', 'ipCookie', '$state', 'ngAudio',
-    function ($scope, $log, SignalRService, $timeout, ipCookie, $state, ngAudio) {
+pPoker.controller('PokerController', ['$scope', '$log', 'SignalRService', '$timeout', 'ipCookie', '$state',
+    function ($scope, $log, SignalRService, $timeout, ipCookie, $state) {
         $scope.poker = $scope.poker || {};
         $scope.poker.signalR = SignalRService.properties;
 
         self.Init = function () {
             $scope.poker.sounds = {};
-            $scope.poker.sounds.playerJoin = ngAudio.load('/app/game/sounds/playerJoin.mp3');
-            $scope.poker.sounds.dibs = ngAudio.load('/app/game/sounds/dibs.mp3');
-            $scope.poker.sounds.reveal = ngAudio.load('/app/game/sounds/reveal.mp3');
         };
 
         $scope.poker.SubmitEstimate = function () {

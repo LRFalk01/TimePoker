@@ -127,6 +127,7 @@
     <Content Include="assets\app\app.js" />
     <Content Include="assets\app\base\BaseController.js" />
     <Content Include="assets\app\base\layout.html" />
+    <Content Include="assets\app\core\directives\pkAudio.js" />
     <Content Include="assets\app\core\services\DebounceService.js" />
     <Content Include="assets\app\game\game.html" />
     <Content Include="assets\app\game\PokerController.js" />
@@ -172,6 +173,7 @@
     <Content Include="assets\lib\jquery.signalR-2.1.2\jquery.signalR-2.1.2.min.js" />
     <Content Include="assets\lib\moment-2.5.1\moment.min.js" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>XCOPY "$(ProjectDir)assets" "$(TargetDir)assets" /E /I /F /Y</PostBuildEvent>
