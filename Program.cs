@@ -13,7 +13,7 @@ namespace PlanningPoker
         {
 
 #if DEBUG
-            var url = "http://+:8080/";
+            var url = "http://localhost:8080/";
 #endif
 #if !DEBUG
             var url = "http://*:8888";

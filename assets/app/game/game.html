@@ -87,17 +87,22 @@
                 <button class="btn btn-primary" ng-click="poker.SubmitEstimate()">Done</button>
             </div>
         </div>
-        <div class="row" style="margin-bottom: 10px;">
+        <div class="row">
+            <div class="col-xs-12">
+                <button class="btn btn-primary" ng-click="poker.Reset()">Reset</button>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12">
+                <hr />
+            </div>
+        </div>
+        <div class="row">
             <div class="col-xs-6">
                 <input class="form-control" type="number" ng-model="poker.hours" />
             </div>
             <div class="col-xs-6">
                 <button class="btn btn-primary" ng-click="poker.AddHours()">Add Hours</button>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-xs-12">
-                <button class="btn btn-primary" ng-click="poker.Reset()">Reset</button>
             </div>
         </div>
     </div>
