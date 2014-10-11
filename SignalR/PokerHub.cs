@@ -9,6 +9,7 @@ namespace PlanningPoker.SignalR
         {
             public void JoinServer(JoinServerModel model)
             {
+                model.Room = model.Room.ToLower();
                 if (!PokerState.Instance.NameAvailable(model.Name, model.Room))
                 {
                     Clients.Caller.nameAvailable(false);
