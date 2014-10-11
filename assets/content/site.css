@@ -77,7 +77,9 @@
 
     .card-container .estimate {
         font-weight: bold;
-        font-size: 5em;
+        font-size: 44px;
+        line-height: 1;
+        margin-top: 27px;
     }
 
     .card-container .estimate .waiting {
