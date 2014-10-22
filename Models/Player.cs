@@ -20,6 +20,8 @@ namespace PlanningPoker.Models
         public bool Volunteer { get; set; }
         public bool IsPlaying { get; set; }
         public List<decimal> Hours { get; set; }
+        public bool Inactive { get; set; }
+
         public void Clear()
         {
             Estimate = null;

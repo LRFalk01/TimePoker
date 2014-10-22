@@ -15,6 +15,11 @@ namespace PlanningPoker.Models
         public List<Player> Players { get; set; }
         public string BoardName { get; private set; }
 
+        public List<Player> ActivePlayers()
+        {
+            return Players.Where(x => !x.Inactive && x.IsPlaying).ToList();
+        } 
+
         public bool NameAvailable(string name)
         {
             var available = !Players.Exists(x => x.Name.ToLower() == name.ToLower());
@@ -67,6 +72,26 @@ namespace PlanningPoker.Models
         {
             if (!Players.Exists(x => x.ConnectionId == connectionid)) return;
             Players.First(x => x.ConnectionId == connectionid).Hours.Add(hours);
+        }
+
+        public Player FindPlayerById(string id)
+        {
+            var guid = new Guid(id);
+            return Players.FirstOrDefault(x => x.Id == guid);
+        }
+
+        public void SetInactive(string connectionId)
+        {
+            var player = Players.FirstOrDefault(x => x.ConnectionId == connectionId);
+            if (player == null) return;
+            player.Inactive = true;
+        }
+
+        public void ClearInactive(string connectionId)
+        {
+            var player = Players.FirstOrDefault(x => x.ConnectionId == connectionId);
+            if (player == null) return;
+            player.Inactive = false;
         }
     }
 }

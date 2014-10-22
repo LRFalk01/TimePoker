@@ -7,6 +7,9 @@ pPoker.controller('PokerController', ['$scope', '$log', 'SignalRService', '$time
 
         self.Init = function () {
             $scope.poker.sounds = {};
+            SignalRService.initialized.then(function() {
+                SignalRService.GetPlayers();
+            });
         };
 
         $scope.poker.SubmitEstimate = function () {

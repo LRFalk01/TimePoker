@@ -1,6 +1,7 @@
 ﻿'use strict';
 
-pPoker.factory('SignalRService', ['$q', '$rootScope', '$log', function ($q, $rootScope, $log) {
+pPoker.factory('SignalRService', ['$q', '$rootScope', '$log', 'ipCookie',
+    function ($q, $rootScope, $log, ipCookie) {
     var self = this;
     self.base = {};
     
@@ -23,6 +24,7 @@ pPoker.factory('SignalRService', ['$q', '$rootScope', '$log', function ($q, $roo
         };
 
         self.hub.client.joinServer = function (player) {
+            ipCookie('id', player.Id, { expires: 1 });
             angular.copy(player, self.base.currentPlayer);
             $rootScope.$apply();
             $log.debug('game.joinServer');
@@ -49,7 +51,13 @@ pPoker.factory('SignalRService', ['$q', '$rootScope', '$log', function ($q, $roo
         });
     };
     self.JoinServer = function (name, isPlaying, room) {
-        self.hub.server.joinServer({ Name: name, Room: room, Spectator: isPlaying });
+        var reqData = { Name: name, Room: room, Spectator: isPlaying };
+        var id = ipCookie('id');
+        if (id) {
+            reqData.Id = id;
+        }
+
+        self.hub.server.joinServer(reqData);
         $log.debug('joinServer');
     };
 
@@ -64,6 +72,7 @@ pPoker.factory('SignalRService', ['$q', '$rootScope', '$log', function ($q, $roo
     };
 
     self.Leave = function () {
+        ipCookie.remove('id');
         self.hub.server.leaveGame();
         $log.debug('leaveGame');
     };
@@ -78,6 +87,10 @@ pPoker.factory('SignalRService', ['$q', '$rootScope', '$log', function ($q, $roo
         $log.debug('addHours');
     };
 
+    self.GetPlayers = function() {
+        self.hub.server.getPlayers();
+    };
+
     self.Init();
     return {
         initialized: self.initialized,
@@ -88,6 +101,7 @@ pPoker.factory('SignalRService', ['$q', '$rootScope', '$log', function ($q, $roo
         Reset: self.Reset,
         Volunteer: self.Volunteer,
         Leave: self.Leave,
-        AddHours: self.AddHours
+        AddHours: self.AddHours,
+        GetPlayers: self.GetPlayers
     }; 
 }]);

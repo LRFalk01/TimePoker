@@ -52,6 +52,14 @@ namespace PlanningPoker.Models
             return _boards.Any(x => x.Value.PlayerConnected(connectedId));
         }
 
+        public Player FindPlayerById(string id)
+        {
+            var board = _boards.FirstOrDefault(x => x.Value.FindPlayerById(id) != null);
+            if (board.Value == null) return null;
+            var player = board.Value.FindPlayerById(id);
+            return player;
+        }
+
         public Player PlayerJoin(string playerName, string boardName, string connectionId)
         {
             var board = GetBoard(boardName);
@@ -98,6 +106,20 @@ namespace PlanningPoker.Models
         {
             if (!PlayerConnected(connectionId)) return;
             GetPlayerBoard(connectionId).SubmitVulonteer(connectionId);
+        }
+
+        public void SetInactive(string connectionId)
+        {
+            if (!PlayerConnected(connectionId)) return;
+            var board = GetPlayerBoard(connectionId);
+            board.SetInactive(connectionId);
+        }
+
+        public void ClearInactive(string connectionId)
+        {
+            if (!PlayerConnected(connectionId)) return;
+            var board = GetPlayerBoard(connectionId);
+            board.ClearInactive(connectionId);
         }
     }
 }

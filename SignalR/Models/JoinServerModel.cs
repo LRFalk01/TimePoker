@@ -5,5 +5,6 @@
         public string Name { get; set; }
         public string Room { get; set; }
         public bool Spectator { get; set; }
+        public string Id { get; set; }
     }
 }
