@@ -77,7 +77,19 @@
             </div>
             <div class="col-xs-6">
                 <div class="pull-left" style="width: 80%">
-                    <input class="form-control" type="number" ng-model="poker.estimate" />
+                    <select class="form-control" ng-model="poker.estimate">
+                        <option>1</option>
+                        <option>1.5</option>
+                        <option>2</option>
+                        <option>2.5</option>
+                        <option>4</option>
+                        <option>6</option>
+                        <option>8</option>
+                        <option>12</option>
+                        <option>16</option>
+                        <option>24</option>
+                    </select>
+                    <!--<input class="form-control" type="number" ng-model="poker.estimate" />-->
                 </div>
                 <div class="pull-left" style="width: 20%">
                     <button class="btn btn-primary" ng-click="poker.SubmitUnknown()">?</button>
@@ -99,7 +111,19 @@
         </div>
         <div class="row">
             <div class="col-xs-6">
-                <input class="form-control" type="number" ng-model="poker.hours" />
+                <select class="form-control" ng-model="poker.hours">
+                    <option>1</option>
+                    <option>1.5</option>
+                    <option>2</option>
+                    <option>2.5</option>
+                    <option>4</option>
+                    <option>6</option>
+                    <option>8</option>
+                    <option>12</option>
+                    <option>16</option>
+                    <option>24</option>
+                </select>
+                <!--<input class="form-control" type="number" ng-model="poker.hours" />-->
             </div>
             <div class="col-xs-6">
                 <button class="btn btn-primary" ng-click="poker.AddHours()">Add Hours</button>
