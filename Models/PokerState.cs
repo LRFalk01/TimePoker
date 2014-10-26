@@ -44,7 +44,9 @@ namespace PlanningPoker.Models
 
         public bool NameAvailable(string playerName, string boardName)
         {
-            return GetBoard(boardName).NameAvailable(playerName);
+            var board = GetBoard(boardName);
+            board.RemoveInactive();
+            return board.NameAvailable(playerName);
         }
 
         public bool PlayerConnected(string connectedId)

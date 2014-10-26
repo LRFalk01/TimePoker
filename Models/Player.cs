@@ -21,6 +21,7 @@ namespace PlanningPoker.Models
         public bool IsPlaying { get; set; }
         public List<decimal> Hours { get; set; }
         public bool Inactive { get; set; }
+        public DateTime? InactiveTime { get; set; }
 
         public void Clear()
         {

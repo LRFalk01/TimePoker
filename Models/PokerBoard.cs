@@ -80,11 +80,19 @@ namespace PlanningPoker.Models
             return Players.FirstOrDefault(x => x.Id == guid);
         }
 
+        public void RemoveInactive()
+        {
+            Players.Where(player => player.InactiveTime.HasValue && player.InactiveTime < DateTime.Now.AddHours(-1))
+                .ToList()
+                .ForEach(player => Players.Remove(player));
+        }
+
         public void SetInactive(string connectionId)
         {
             var player = Players.FirstOrDefault(x => x.ConnectionId == connectionId);
             if (player == null) return;
             player.Inactive = true;
+            player.InactiveTime = DateTime.Now;
         }
 
         public void ClearInactive(string connectionId)
@@ -92,6 +100,7 @@ namespace PlanningPoker.Models
             var player = Players.FirstOrDefault(x => x.ConnectionId == connectionId);
             if (player == null) return;
             player.Inactive = false;
+            player.InactiveTime = null;
         }
     }
 }
