@@ -10,48 +10,50 @@
 
     <div class="row">
         <div class="col-xs-12">
-            <div style="display: inline-block;" ng-repeat="player in poker.signalR.players | filter:{ IsPlaying: true }">
-                <div class="flip-container" ng-class="{hover: poker.reveal}">
-                    <div class="flipper">
-                        <div class="front">
-                            <!-- front content -->
-                            <div class="card-container">
-                                <div class="card">
-                                    <!-- Volunteer -->
-                                    <div class="volunteer" ng-show="player.Volunteer">
-                                        <i class="fa fa-star"></i>
-                                    </div>
-                                    <!-- Status -->
-                                    <div class="estimate status">
-                                        <i class="fa" ng-class="{
+            <div class="players">
+                <div class="player-container" ng-repeat="player in poker.signalR.players | filter:{ IsPlaying: true }">
+                    <div class="flip-container" ng-class="{hover: poker.reveal}">
+                        <div class="flipper">
+                            <div class="front">
+                                <!-- front content -->
+                                <div class="card-container">
+                                    <div class="card">
+                                        <!-- Volunteer -->
+                                        <div class="volunteer" ng-show="player.Volunteer">
+                                            <i class="fa fa-star"></i>
+                                        </div>
+                                        <!-- Status -->
+                                        <div class="estimate status">
+                                            <i class="fa" ng-class="{
                                             'fa-clock-o waiting': !player.Estimate,
                                             'fa-check  done': player.Estimate,
                                             }">
-                                        </i>
+                                            </i>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="back">
-                            <!-- back content -->
-                            <div class="card-container">
-                                <div class="card">
-                                    <!-- Volunteer -->
-                                    <div class="volunteer" ng-show="player.Volunteer">
-                                        <i class="fa fa-star"></i>
-                                    </div>
-                                    <!-- Estimate -->
-                                    <div class="estimate">
-                                        <div>{{player.Estimate}}</div>
+                            <div class="back">
+                                <!-- back content -->
+                                <div class="card-container">
+                                    <div class="card">
+                                        <!-- Volunteer -->
+                                        <div class="volunteer" ng-show="player.Volunteer">
+                                            <i class="fa fa-star"></i>
+                                        </div>
+                                        <!-- Estimate -->
+                                        <div class="estimate">
+                                            <div>{{player.Estimate}}</div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                <!-- Player Name -->
-                <div class="player-name">
-                    {{player.Name}} <span style="font-weight: lighter;" ng-show="player.TotalHours">({{player.TotalHours}})</span>
+                    <!-- Player Name -->
+                    <div class="player-name">
+                        {{player.Name}} <span style="font-weight: lighter;" ng-show="player.TotalHours">({{player.TotalHours}})</span>
+                    </div>
                 </div>
             </div>
         </div>
