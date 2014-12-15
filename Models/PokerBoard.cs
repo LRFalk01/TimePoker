@@ -17,8 +17,8 @@ namespace PlanningPoker.Models
 
         public List<Player> ActivePlayers()
         {
-            return Players.Where(x => !x.Inactive && x.IsPlaying).ToList();
-        } 
+            return Players.Where(x => !x.Inactive).ToList();
+        }
 
         public bool NameAvailable(string name)
         {

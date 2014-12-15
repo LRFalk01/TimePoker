@@ -56,6 +56,13 @@
                     </div>
                 </div>
             </div>
+            <div class="spectators">
+                <strong>Spectators: </strong>
+                <span ng-repeat="player in poker.signalR.players | filter:{ IsPlaying: false }">
+                    <!-- todo: find a way to make the comma after the name, not before, for ui spacing reasons -->
+                    {{$index > 0 ? ',' : ''}}{{player.Name}}
+                </span>
+            </div>
         </div>
     </div>
 

@@ -47,6 +47,10 @@
     margin-right: -15px;
 }
 
+.spectators {
+    margin-top: 10px;
+}
+
 .card-container {
     position: relative;
     width: 80px;
