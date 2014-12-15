@@ -107,7 +107,7 @@ namespace PlanningPoker.Models
         public void PlayerVolunteer(string connectionId)
         {
             if (!PlayerConnected(connectionId)) return;
-            GetPlayerBoard(connectionId).SubmitVulonteer(connectionId);
+            GetPlayerBoard(connectionId).SubmitVolunteer(connectionId);
         }
 
         public void SetInactive(string connectionId)

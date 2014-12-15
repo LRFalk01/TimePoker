@@ -45,7 +45,7 @@ namespace PlanningPoker.Models
             player.Estimate = estimate;
         }
 
-        public void SubmitVulonteer(string connectionId)
+        public void SubmitVolunteer(string connectionId)
         {
             //only one player can volunteer
             if (Players.Exists(x => x.Volunteer && x.ConnectionId != connectionId)) return;
