@@ -4,6 +4,7 @@ pPoker.controller('PokerController', ['$scope', '$log', 'SignalRService', '$time
     function ($scope, $log, SignalRService, $timeout, ipCookie, $state) {
         $scope.poker = $scope.poker || {};
         $scope.poker.signalR = SignalRService.properties;
+        $scope.poker.spectators = [];
 
         self.Init = function () {
             $scope.poker.sounds = {};
@@ -42,6 +43,14 @@ pPoker.controller('PokerController', ['$scope', '$log', 'SignalRService', '$time
                 if (player.Hours.length > 0)
                     player.TotalHours = player.Hours.reduce(function (previousValue, currentValue, index, array) { return previousValue + currentValue; });
             });
+
+            $scope.poker.spectators = [];
+            angular.forEach(players, function (player) {
+                if (!player.IsPlaying)
+                    $scope.poker.spectators.push(player);
+            });
+
+
 
             $timeout(function () {
                 var previousReveal = $scope.poker.reveal;
