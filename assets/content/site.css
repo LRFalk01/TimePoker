@@ -123,6 +123,10 @@
     display: inline-block;
 }
 
+.card.changed {
+    background-color: lightpink;
+}
+
 /* START FLIPPING */
 /* entire container, keeps perspective */
 .flip-container {

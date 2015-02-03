@@ -37,6 +37,14 @@ pPoker.controller('PokerController', ['$scope', '$log', 'SignalRService', '$time
             $scope.poker.hours = undefined;
         };
 
+        $scope.$watch('poker.reveal', function(newValue, oldValue) {
+            if (!newValue && oldValue) {
+                angular.forEach($scope.poker.signalR.players, function (player) {
+                    player.EstimateChanged = false;
+                });
+            }
+        });
+
 
         $scope.$watchCollection('poker.signalR.players', function (players, oldPlayers) {
             angular.forEach(players, function (player) {
@@ -49,11 +57,24 @@ pPoker.controller('PokerController', ['$scope', '$log', 'SignalRService', '$time
                 if (!player.IsPlaying)
                     $scope.poker.spectators.push(player);
             });
+            
+            var previousReveal = $scope.poker.reveal;
+            if (oldPlayers && oldPlayers.length) {
+                players.forEach(function (player) {
+                    oldPlayers.forEach(function (oldPlayer) {
+                        if (player.Id != oldPlayer.Id) return;
+                        if (player.Volunteer && !oldPlayer.Volunteer)
+                            $scope.poker.sounds.dibs.play();
 
+                        player.EstimateChanged = oldPlayer.EstimateChanged;
+                        if (!player.EstimateChanged && previousReveal && player.Estimate != oldPlayer.Estimate)
+                            player.EstimateChanged = true;
 
+                    });
+                });
+            }
 
             $timeout(function () {
-                var previousReveal = $scope.poker.reveal;
                 if (!players || players.length == 0) {
                     $scope.poker.reveal = false;
                     return;
@@ -62,16 +83,6 @@ pPoker.controller('PokerController', ['$scope', '$log', 'SignalRService', '$time
                     $scope.poker.sounds.playerJoin.play();
                 }
 
-                if (oldPlayers && oldPlayers.length) {
-                    players.forEach(function (player) {
-                        oldPlayers.forEach(function(oldPlayer) {
-                            if (player.Id != oldPlayer.Id) return;
-                            if (player.Volunteer && !oldPlayer.Volunteer)
-                                $scope.poker.sounds.dibs.play();
-                        });
-                    });
-                }
-                
                 $scope.poker.reveal = players.every(function (player) {
                     if (!player.IsPlaying) return true;
                     return player.Estimate;

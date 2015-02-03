@@ -41,7 +41,7 @@ pPoker.controller('LoginController',
         self.Init = function () {
             $scope.login.user = {};
             $scope.login.user.Remember = true;
-            if ($scope.login.GetCookieValues())$scope.login.submitForm();
+            $scope.login.GetCookieValues();
         };
         self.Init();
     }]

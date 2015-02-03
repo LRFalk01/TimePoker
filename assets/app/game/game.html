@@ -36,13 +36,13 @@
                             <div class="back">
                                 <!-- back content -->
                                 <div class="card-container">
-                                    <div class="card">
+                                    <div class="card" ng-class="{ changed: player.EstimateChanged }">
                                         <!-- Volunteer -->
                                         <div class="volunteer" ng-show="player.Volunteer">
                                             <i class="fa fa-star"></i>
                                         </div>
                                         <!-- Estimate -->
-                                        <div class="estimate">
+                                        <div ng-show="poker.reveal" class="estimate">
                                             <div>{{player.Estimate}}</div>
                                         </div>
                                     </div>
