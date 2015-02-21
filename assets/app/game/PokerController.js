@@ -37,6 +37,12 @@ pPoker.controller('PokerController', ['$scope', '$log', 'SignalRService', '$time
             $scope.poker.hours = undefined;
         };
 
+        $scope.poker.SubtractHours = function () {
+            if (!$scope.poker.hours) return;
+            SignalRService.AddHours('-' + $scope.poker.hours);
+            $scope.poker.hours = undefined;
+        };
+
         $scope.$watch('poker.reveal', function(newValue, oldValue) {
             if (!newValue && oldValue) {
                 angular.forEach($scope.poker.signalR.players, function (player) {
