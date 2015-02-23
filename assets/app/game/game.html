@@ -4,7 +4,7 @@
             Room: <b>{{base.signalR.room}}</b>
         </div>
         <div class="col-xs-6" style="text-align: right;">
-            {{base.signalR.currentPlayer.Name }} | <a ng-click="poker.Leave()">Leave</a>
+            {{base.signalR.currentPlayer.Name }} | <a style="cursor: pointer;" ng-click="poker.Leave()">Leave</a>
         </div>
     </div>
 
@@ -146,4 +146,5 @@
     <audio style="display: none;" pk-audio="poker.sounds.dibs" controls="" src="/app/game/sounds/dibs.mp3"></audio>
     <audio style="display: none;" pk-audio="poker.sounds.playerJoin" controls="" src="/app/game/sounds/playerJoin.mp3"></audio>
     <audio style="display: none;" pk-audio="poker.sounds.reveal" controls="" src="/app/game/sounds/reveal.mp3"></audio>
+    <audio style="display: none;" pk-audio="poker.sounds.waiting" controls="" src="/app/game/sounds/jeopardy.mp3"></audio>
 </div>

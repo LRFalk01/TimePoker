@@ -133,6 +133,7 @@
     <Content Include="assets\app\game\PokerController.js" />
     <Content Include="assets\app\core\services\SignalRService.js" />
     <Content Include="assets\app\game\sounds\dibs.mp3" />
+    <Content Include="assets\app\game\sounds\jeopardy.mp3" />
     <Content Include="assets\app\game\sounds\playerJoin.mp3" />
     <Content Include="assets\app\game\sounds\reveal.mp3" />
     <Content Include="assets\app\routes.js" />

@@ -51,6 +51,40 @@ pPoker.controller('PokerController', ['$scope', '$log', 'SignalRService', '$time
             }
         });
 
+        $scope.poker.waiting = undefined;
+        $scope.JepardyCheck = function (players) {
+            if (!$scope.poker.signalR.currentPlayer.IsPlaying)
+                return;
+
+            var currentPlayer = players.filter(function (player) {
+                return player.ConnectionId == $scope.poker.signalR.currentPlayer.ConnectionId;
+            })[0];
+
+            if (!currentPlayer)
+                return;
+
+            var otherPlayers = angular.copy(players);
+            otherPlayers.splice(players.indexOf(currentPlayer), 1);
+            var othersWaiting = otherPlayers.every(function (player) {
+                return player.estimate === 0 || !!player.Estimate;
+            });
+
+            if (currentPlayer.Estimate || !othersWaiting) {
+                $scope.poker.sounds.waiting.pause();
+                $scope.poker.sounds.waiting.currentTime = 0;
+                if ($scope.poker.waiting) {
+                    $timeout.cancel($scope.poker.waiting);
+                    $scope.poker.waiting = undefined;
+                }
+                return;   
+            }
+
+            if (otherPlayers.length > 0) {
+                $scope.poker.waiting = $timeout(function () {
+                    $scope.poker.sounds.waiting.play();
+                }, 20000);
+            }
+        };
 
         $scope.$watchCollection('poker.signalR.players', function (players, oldPlayers) {
             angular.forEach(players, function (player) {
@@ -58,12 +92,16 @@ pPoker.controller('PokerController', ['$scope', '$log', 'SignalRService', '$time
                     player.TotalHours = player.Hours.reduce(function (previousValue, currentValue, index, array) { return previousValue + currentValue; });
             });
 
-            $scope.poker.spectators = [];
-            angular.forEach(players, function (player) {
-                if (!player.IsPlaying)
-                    $scope.poker.spectators.push(player);
+            $scope.poker.spectators = players.filter(function (player) {
+                return !player.IsPlaying;
             });
             
+            $scope.poker.players = players.filter(function (player) {
+                return player.IsPlaying;
+            });
+
+            $scope.JepardyCheck($scope.poker.players);
+
             var previousReveal = $scope.poker.reveal;
             if (oldPlayers && oldPlayers.length) {
                 players.forEach(function (player) {
