@@ -11,7 +11,7 @@
     <div class="row">
         <div class="col-xs-12">
             <div class="players">
-                <div class="player-container" ng-repeat="player in poker.signalR.players | filter:{ IsPlaying: true }">
+                <div class="player-container" ng-repeat="player in poker.signalR.players | filter:{ IsPlaying: true } | orderBy : 'Name'">
                     <div class="flip-container" ng-class="{hover: poker.reveal}">
                         <div class="flipper">
                             <div class="front">
@@ -64,7 +64,7 @@
             <div class="pull-right">
                 <button class="btn btn-primary" ng-click="poker.Reset()">Reset</button>
             </div>
-            <div class="spectators">
+            <div ng-show="poker.spectators.length > 0" class="spectators">
                 <strong>Spectators: </strong>
                 <span ng-repeat="player in poker.spectators">
                     {{player.Name}}{{$index < poker.spectators.length - 1 ? ',' : ''}}
