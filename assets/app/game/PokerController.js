@@ -17,11 +17,6 @@ pPoker.controller('PokerController', ['$scope', '$log', 'SignalRService', '$time
             SignalRService.SubmitEstimate($scope.poker.estimate);
         };
 
-        $scope.poker.SubmitUnknown = function () {
-            $scope.poker.estimate = '?';
-            $scope.poker.SubmitEstimate();
-        };
-
         $scope.poker.Reset = function () {
             $scope.poker.estimate = '';
             SignalRService.Reset();
