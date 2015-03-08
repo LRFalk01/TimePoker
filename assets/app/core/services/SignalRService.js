@@ -1,7 +1,7 @@
 ﻿'use strict';
 
-pPoker.factory('SignalRService', ['$q', '$rootScope', '$log', 'ipCookie',
-    function ($q, $rootScope, $log, ipCookie) {
+pPoker.factory('SignalRService', ['$q', '$rootScope', '$log', 'ipCookie', '$timeout',
+    function ($q, $rootScope, $log, ipCookie, $timeout) {
     var self = this;
     self.base = {};
     
@@ -13,7 +13,7 @@ pPoker.factory('SignalRService', ['$q', '$rootScope', '$log', 'ipCookie',
     self.base.transport = undefined;
 
     self.hub = null;
-  
+
     self.Init = function () {
         self.hub = $.connection.pokerHub;
 
@@ -42,6 +42,18 @@ pPoker.factory('SignalRService', ['$q', '$rootScope', '$log', 'ipCookie',
             $log.debug('game.roomName');
         };
 
+        //rejoin server on disconnect. auto join server if in game.
+        self.hub.connection.disconnected(function() {
+            $log.debug('disconnected');
+            self.hub.connection.start()
+                .done(function() {
+                    if (self.base.currentPlayer && self.base.currentPlayer.Id)
+                        $timeout(function() {
+                            self.JoinServer(self.base.currentPlayer.Name, self.base.currentPlayer.IsPlaying, self.base.room);
+                        }, 1000);
+                });
+        });
+
         //Starting connection
         $.connection.hub.start().done(function () {
             self.base.transport = self.hub.connection.transport.name;
@@ -50,6 +62,7 @@ pPoker.factory('SignalRService', ['$q', '$rootScope', '$log', 'ipCookie',
             $log.debug('connected');
         });
     };
+
     self.JoinServer = function (name, isPlaying, room) {
         var reqData = { Name: name, Room: room, Spectator: isPlaying };
         var id = ipCookie('id');
