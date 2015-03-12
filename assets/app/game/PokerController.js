@@ -74,7 +74,7 @@ pPoker.controller('PokerController', ['$scope', '$log', 'SignalRService', '$time
                 return;   
             }
 
-            if (otherPlayers.length > 0) {
+            if (!$scope.poker.waiting && otherPlayers.length > 0) {
                 $scope.poker.waiting = $timeout(function () {
                     $scope.poker.sounds.waiting.play();
                 }, 20000);
